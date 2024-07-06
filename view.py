@@ -4,7 +4,7 @@ class View(object):
     def __init__(self, page: ft.Page):
         # Page
         self.page = page
-        self.page.title = "TdP 2024 - Lab 04 - SpellChecker ++"
+        self.page.title = "TdP 2024 - Lab 04 - SpellChecker"
         self.page.horizontal_alignment = 'CENTER'
         self.page.theme_mode = ft.ThemeMode.LIGHT
         # Controller
@@ -15,9 +15,9 @@ class View(object):
 
         # define the UI elements and populate the page
 
-    def add_content(self):
-        """Function that creates and adds the visual elements to the page. It also updates
-        the page accordingly."""
+    def add_content(self): # Function that creates and adds the visual elements to the page. It also updates
+    # the page accordingly
+
         # title + theme switch
         self.__title = ft.Text("TdP 2024 - Lab 04 - SpellChecker ++", size=24, color="blue")
         self.__theme_switch = ft.Switch(label="Light theme", on_change=self.theme_changed)
@@ -26,16 +26,38 @@ class View(object):
                    alignment=ft.MainAxisAlignment.START)
         )
 
-        # Add your stuff here
+        # Row 1
+        self._dropdown_lingua = ft.Dropdown(label = "Select language",
+                                      value = "Choose a language",
+                                      options = [ft.dropdown.Option("English"),
+                                                 ft.dropdown.Option("Italian"),
+                                                 ft.dropdown.Option("Spanish")],
+                                      autofocus = True,
+                                      on_change = self.__controller.handleLangSelection())
 
-        self.page.add([])
+        # Row 2
+        self._dropdown_ricerca = ft.Dropdown(label = "Select a research method",
+                                             value = "Choose a research method",
+                                             options = [ft.dropdown.Option("Default"),
+                                                        ft.dropdown.Option("Lineare"),
+                                                        ft.dropdown.Option("Dicotomica")],
+                                             on_change = self.__controller.handleResearchMethodSelection())
+        self._testo_iniziale = ft.TextField(label = "Insert the text")
+        self._bottone_correzione = ft.ElevatedButton("Correggi", on_click = self.__controller.handleSpellChecker)
+
+
+        self._lvOut = ft.ListView()
+
+        self.page.add(self._dropdown_lingua, self._lvOut)
 
         self.page.update()
 
     def update(self):
         self.page.update()
+
     def setController(self, controller):
         self.__controller = controller
+
     def theme_changed(self, e):
         """Function that changes the color theme of the app, when the corresponding
         switch is triggered"""

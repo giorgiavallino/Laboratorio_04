@@ -1,14 +1,15 @@
+# Importare tutti i moduli che verranno utlizzati in seguito: flet, controller e view
 import flet as ft
+from controller import SpellChecker
+from view import View
 
-import controller as c
-import view as v
-
-
+# Definizione del main
 def main(page: ft.Page):
-    # Setup model, view, control according to MVC pattern
-    view = v.View(page)
-    controller = c.SpellChecker(view)
+    # Istanziare la view e il controller
+    view = View(page)
+    controller = SpellChecker(view)
     view.setController(controller)
+    # Aggiungere l'interfaccia grafica
     view.add_content()
 
-ft.app(target=main)
+ft.app(target = main)

@@ -1,10 +1,12 @@
+# Importare i moduli necessari per lo svolgimento del programma
 import time
 import flet as ft
 import model as md
+from view import View
 
 class SpellChecker:
 
-    def __init__(self, view):
+    def __init__(self, view: View):
         self._multiDic = md.MultiDictionary()
         self._view = view
 
@@ -56,6 +58,24 @@ class SpellChecker:
               "4. Exit\n" +
               "______________________________\n")
 
+    def handleLangSelection(self):
+        self._view._lvOut.controls.append(ft.Text("Language selected: " + self._view._dropdown_lingua.value))
+        self._view.update()
+
+    def handleResearchMethodSelection(self):
+        self._view._lvOut.controls.append(ft.Text("Research method selected: " + self._view._dropdown_lingua.value))
+        self._view.update()
+
+    def handleSpellChecker(self):
+
+        language = self._view._dropdown_lingua.value
+        if language == "":
+            self._view._lvOut.controls.append(ft.Text("Please select a language!", color = "red"))
+            self._view.update()
+
+        method = self._view._dropdown_ricerca.value
+        if method == "":
+            self._view._lvOut.controls.append(ft.Text("Please select a research method!", color = "red"))
 
 def replaceChars(text):
     chars = "\\`*_{}[]()>#+-.!$?%^;,=_~"

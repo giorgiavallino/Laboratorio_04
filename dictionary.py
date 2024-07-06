@@ -1,5 +1,5 @@
 class Dictionary:
-    def __init__(self, dict=[], language = ""):
+    def __init__(self, dict = [], language = ""):
         self._dict = dict
         self._language = language
 
@@ -12,7 +12,6 @@ class Dictionary:
 
     def printAll(self):
         for value in self._dict:
-
             print(f" {value}")
 
 
