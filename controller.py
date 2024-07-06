@@ -4,8 +4,11 @@ import flet as ft
 import model as md
 from view import View
 
+# Definire una classe Controller che prende il nome di SpellChecker
 class SpellChecker:
 
+    # Definire un metodo __init__ contenente il modello e la view, che permetta a questi due elementi di comunicare
+    # tramite il controller
     def __init__(self, view: View):
         self._multiDic = md.MultiDictionary()
         self._view = view
@@ -46,7 +49,6 @@ class SpellChecker:
             case _:
                 return None
 
-
     def printMenu(self):
         print("______________________________\n" +
               "      SpellChecker 101\n"+
@@ -58,45 +60,64 @@ class SpellChecker:
               "4. Exit\n" +
               "______________________________\n")
 
+    # Definire un metodo handleLangSelection che gestisca il corretto inserimento della lingua scelta
     def handleLangSelection(self):
-        self._view._lvOut.controls.append(ft.Text("Language selected: " + self._view._dropdown_lingua.value))
+        self._view._lvOut.controls.append(ft.Text("Language selected: " + self._view._dropdown_lingua.value)) # stampa
+        # la lingua scelta nell'interfaccia grafica per far capire all'utente che il selezionamento è stato fatto
+        # correttamente
         self._view.update()
 
+    # Definire un metodo handleResearchMethodSelection che gestisca il corretto inserimento della modalità di ricerca
+    # scelta
     def handleResearchMethodSelection(self):
         self._view._lvOut.controls.append(ft.Text("Research method selected: " + self._view._dropdown_lingua.value))
+        # stampa il metodo di ricerca scelto nell'interfaccia grafica per far capire all'utente che il selezionamento è
+        # stato fatto correttamente
         self._view.update()
 
+    # Definire un metodo handleSpellChecker che gestisca ciò che succede quando viene cliccato il button per la
+    # correzione --> gestione degli input, indicazione delle parole sbagliate e calcolo del tempo impiegato per ottenere
+    # le parole errate nella frase
     def handleSpellChecker(self):
 
+        # Gestione dell'input dropdown_lingua: controllare che l'input sia presente
         language = self._view._dropdown_lingua.value
         if language == "":
+            self._view._lvOut.controls.clear()
             self._view._lvOut.controls.append(ft.Text("Please select a language!", color = "red"))
             self._view.update()
             return
 
+        # Gestione dell'input dropdown_ricerca: controllare che l'input sia presente
         method = self._view._dropdown_ricerca.value
         if method == "":
+            self._view._lvOut.controls.clear()
             self._view._lvOut.controls.append(ft.Text("Please select a research method!", color = "red"))
             self._view.update()
             return
 
+        # Gestione dell'input testo_iniziale: controllare che l'input sia presente e cancellare l'input inserito per
+        # avere di nuovo una text.field bianca, senza testo
         testo_da_correggere = self._view._testo_iniziale.value
         if testo_da_correggere == "":
+            self._view._lvOut.controls.clear()
             self._view._lvOut.controls.append(ft.Text("Please enter a sentence to correct!", color = "red"))
             self._view.update()
             return
-        self._view._dropdown_ricerca.controls.clear()
+        self._view._testo_iniziale.controls.clear()
         self._view.update()
 
-        if method == "Default":
-            self._multiDic.searchWord(testo_da_correggere, language)
-            self._view._lvOut.controls.append(ft.Text("Initial sentence" + testo_da_correggere))
-            return
-
+        # Determinare le parole sbagliate e il tempo impiegato per trovarle con la funzione handleSentence
         parole_sbagliate, tempo = self.handleSentence(testo_da_correggere, language, method)
+
+        # Ripulire la ListView e aggiornarla con i dati richiesti dall'esercizio: la frase iniziale, le parole
+        # sbagliate e il tempo impiegato per trovarle
+        self._view._lvOut.controls.clear()
         self._view._lvOut.controls.append(ft.Text("Initial sentence: " + testo_da_correggere))
         self._view._lvOut.controls.append(ft.Text("Wrong words: " + parole_sbagliate))
         self._view._lvOut.controls.append(ft.Text("Time needed: " + tempo))
+
+        self._view.update()
 
 def replaceChars(text):
     chars = "\\`*_{}[]()>#+-.!$?%^;,=_~"
