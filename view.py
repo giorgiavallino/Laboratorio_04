@@ -35,7 +35,7 @@ class View(object):
                                       autofocus = True,
                                       on_change = self.__controller.handleLangSelection())
 
-        # Row 2
+        # Row 1
         self._dropdown_ricerca = ft.Dropdown(label = "Select a research method",
                                              value = "Choose a research method",
                                              options = [ft.dropdown.Option("Default"),
@@ -44,11 +44,12 @@ class View(object):
                                              on_change = self.__controller.handleResearchMethodSelection())
         self._testo_iniziale = ft.TextField(label = "Insert the text")
         self._bottone_correzione = ft.ElevatedButton("Correggi", on_click = self.__controller.handleSpellChecker)
-
+        row1 = ft.Row([self._dropdown_lingua, self._testo_iniziale, self._bottone_correzione],
+                      alignment = ft.MainAxisAlignment.CENTER)
 
         self._lvOut = ft.ListView()
 
-        self.page.add(self._dropdown_lingua, self._lvOut)
+        self.page.add(self._dropdown_lingua, row1, self._lvOut)
 
         self.page.update()
 

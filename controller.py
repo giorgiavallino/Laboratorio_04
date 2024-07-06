@@ -72,10 +72,31 @@ class SpellChecker:
         if language == "":
             self._view._lvOut.controls.append(ft.Text("Please select a language!", color = "red"))
             self._view.update()
+            return
 
         method = self._view._dropdown_ricerca.value
         if method == "":
             self._view._lvOut.controls.append(ft.Text("Please select a research method!", color = "red"))
+            self._view.update()
+            return
+
+        testo_da_correggere = self._view._testo_iniziale.value
+        if testo_da_correggere == "":
+            self._view._lvOut.controls.append(ft.Text("Please enter a sentence to correct!", color = "red"))
+            self._view.update()
+            return
+        self._view._dropdown_ricerca.controls.clear()
+        self._view.update()
+
+        if method == "Default":
+            self._multiDic.searchWord(testo_da_correggere, language)
+            self._view._lvOut.controls.append(ft.Text("Initial sentence" + testo_da_correggere))
+            return
+
+        parole_sbagliate, tempo = self.handleSentence(testo_da_correggere, language, method)
+        self._view._lvOut.controls.append(ft.Text("Initial sentence: " + testo_da_correggere))
+        self._view._lvOut.controls.append(ft.Text("Wrong words: " + parole_sbagliate))
+        self._view._lvOut.controls.append(ft.Text("Time needed: " + tempo))
 
 def replaceChars(text):
     chars = "\\`*_{}[]()>#+-.!$?%^;,=_~"
