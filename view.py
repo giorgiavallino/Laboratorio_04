@@ -42,8 +42,9 @@ class View(object):
                                                         ft.dropdown.Option("Lineare"),
                                                         ft.dropdown.Option("Dicotomica")],
                                              on_change = self.__controller.handleResearchMethodSelection())
-        self._testo_iniziale = ft.TextField(label = "Insert the text")
-        self._bottone_correzione = ft.ElevatedButton("Correggi", on_click = self.__controller.handleSpellChecker)
+        self._testo_iniziale = ft.TextField(label = "Insert the sentence")
+        self._bottone_correzione = ft.ElevatedButton("Correction",
+                                                     on_click = self.__controller.handleSpellChecker)
         row1 = ft.Row([self._dropdown_lingua, self._testo_iniziale, self._bottone_correzione],
                       alignment = ft.MainAxisAlignment.CENTER)
 
