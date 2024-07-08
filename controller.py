@@ -15,7 +15,6 @@ class SpellChecker:
 
     def handleSentence(self, txtIn, language, modality):
         txtIn = replaceChars(txtIn.lower())
-
         words = txtIn.split()
         paroleErrate = " - "
 
@@ -87,6 +86,7 @@ class SpellChecker:
             self._view._lvOut.controls.append(ft.Text("Please select a language!", color = "red"))
             self._view.update()
             return
+        self._view._dropdown_lingua.controls.clear()
 
         # Gestione dell'input dropdown_ricerca: controllare che l'input sia presente
         method = self._view._dropdown_ricerca.value
@@ -95,6 +95,7 @@ class SpellChecker:
             self._view._lvOut.controls.append(ft.Text("Please select a research method!", color = "red"))
             self._view.update()
             return
+        self._view._dropdown_ricerca.controls.clear()
 
         # Gestione dell'input testo_iniziale: controllare che l'input sia presente e cancellare l'input inserito per
         # avere di nuovo una text.field bianca, senza testo
