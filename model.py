@@ -1,6 +1,8 @@
+# Importare i moduli dictionary e richWord
 import dictionary as d
 import richWord as rw
 
+# Definire la classe modello MultyDictionary
 class MultiDictionary:
 
     def __init__(self):

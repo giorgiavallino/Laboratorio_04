@@ -13,6 +13,7 @@ class SpellChecker:
         self._multiDic = md.MultiDictionary()
         self._view = view
 
+    # Definire un metodo handleSentence
     def handleSentence(self, txtIn, language, modality):
         txtIn = replaceChars(txtIn.lower())
         words = txtIn.split()
@@ -48,6 +49,7 @@ class SpellChecker:
             case _:
                 return None
 
+    # Definire un modello printMenu
     def printMenu(self):
         print("______________________________\n" +
               "      SpellChecker 101\n"+

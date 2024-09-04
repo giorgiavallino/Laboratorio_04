@@ -12,4 +12,5 @@ def main(page: ft.Page):
     # Aggiungere l'interfaccia grafica
     view.add_content()
 
+# Inserire il seguente codice, necessario per la visualizzazione grafica
 ft.app(target = main)

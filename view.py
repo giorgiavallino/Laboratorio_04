@@ -17,6 +17,11 @@ class View(object):
         # UI elements
         self.__title = None
         self.__theme_switch = None
+        self._dropdown_lingua = None
+        self._dropdown_ricerca = None
+        self._testo_iniziale = None
+        self._bottone_correzione = None
+        self._lvOut = None
 
     # Definire un metodo che gestisca e aggiunga elementi all'interfaccia grafica
     def add_content(self): # Function that creates and adds the visual elements to the page. It also updates
